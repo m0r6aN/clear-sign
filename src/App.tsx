@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import * as mammoth from 'mammoth';
-import { analyzeContract, askContractQuestion, extractTextFromImage, ContractAnalysis } from './services/geminiService';
+import { analyzeContract, askContractQuestion, extractTextFromImage, ContractAnalysis } from './services/analysisApi';
 import { FileText, AlertTriangle, CheckCircle2, Info, Loader2, ArrowRight, ShieldAlert, Upload, X, File as FileIcon, MessageCircle, Send, MessageSquare, Camera, Share2, Printer, Moon, Sun } from 'lucide-react';
 import Logo from './components/Logo';
 import ReactMarkdown from 'react-markdown';

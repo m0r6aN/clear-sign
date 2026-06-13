@@ -1,0 +1,27 @@
+{
+  "name": "clearsign-api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ClearSign backend — Azure Functions (analyze, ask, ocr, credits, checkout)",
+  "type": "module",
+  "main": "dist/**/*.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "start": "func start"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.68.0",
+    "@azure/data-tables": "^13.3.1",
+    "@azure/functions": "^4.7.0",
+    "stripe": "^18.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.2",
+    "vitest": "^3.2.4"
+  }
+}
