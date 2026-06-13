@@ -1,33 +1,40 @@
 // ============================================================================
-// Billing API client (browser side) — STUB
-// ----------------------------------------------------------------------------
-// Typed wrappers around the credit + checkout endpoints. L0 ships throwing
-// stubs; the billing lane replaces the bodies with real `fetch` calls.
+// Billing API client (browser side)
 // ============================================================================
 
-import type {
-  CreditsResponse,
-  CheckoutResponse,
-  CreditPackId,
-} from '../lib/api-types';
+import type { CreditsResponse, CheckoutResponse, CreditPackId } from '../lib/api-types';
+import { getClientId } from './identity';
+import { ApiRequestError } from './analysisApi';
 
-const NOT_IMPLEMENTED = 'billingApi: not implemented (L0 stub)';
-
-/** Read the caller's current credit balance. */
 export async function getCredits(): Promise<CreditsResponse> {
-  throw new Error(NOT_IMPLEMENTED);
+  const params = new URLSearchParams({ clientId: getClientId() });
+  const res = await fetch(`/api/credits?${params}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new ApiRequestError(err.code, err.error);
+  }
+  return res.json() as Promise<CreditsResponse>;
 }
 
-/**
- * Start a Stripe Checkout session for a credit pack.
- * `email` is collected at the paywall (first time we ask) for the receipt +
- * lead capture; the clientId is attached internally so purchased credits land
- * on the same balance as the free tier. Returns the hosted Checkout URL the
- * client should redirect to.
- */
 export async function createCheckoutSession(
-  _packId: CreditPackId,
-  _email: string,
+  packId: CreditPackId,
+  email: string,
 ): Promise<CheckoutResponse> {
-  throw new Error(NOT_IMPLEMENTED);
+  const base = window.location.origin + window.location.pathname;
+  const res = await fetch('/api/checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      clientId: getClientId(),
+      packId,
+      email,
+      successUrl: `${base}?payment=success`,
+      cancelUrl: `${base}?payment=cancelled`,
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new ApiRequestError(err.code, err.error);
+  }
+  return res.json() as Promise<CheckoutResponse>;
 }
