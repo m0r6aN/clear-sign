@@ -1,0 +1,7 @@
+{
+  "name": "ClearSign Contract Analyzer",
+  "description": "An AI-powered tool that translates dense legal contracts into plain English, highlights key obligations, and flags potential risks.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

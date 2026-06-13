@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"C:\\\\Users\\\\clint\\\\.claude\\\\skills\\\\parallel-development-planner-workspace\\\\iteration-1\\\\eval-feature-split-nextjs\\\\with_skill\\\\outputs\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\clint\\\\.claude\\\\skills\\\\parallel-development-planner-workspace\\\\iteration-1\\\\eval-vague-goal-assumptions\\\\with_skill\\\\outputs\")",
+      "Bash(powershell -NoProfile -Command \"Get-Process python -ErrorAction SilentlyContinue | Select-Object Id,StartTime | Format-Table -AutoSize\")"
+    ]
+  }
+}
