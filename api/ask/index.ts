@@ -44,7 +44,7 @@ export async function ask(req: HttpRequest, ctx: InvocationContext): Promise<Htt
       });
     }
 
-    const gate = getCreditGate();
+    const gate = await getCreditGate();
     // ask is free — establish identity / balance but never decrement.
     const creditsRemaining = await gate.check(clientId);
 

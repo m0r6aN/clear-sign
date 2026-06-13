@@ -11,17 +11,18 @@
 import type { HttpRequest, HttpResponseInit } from '@azure/functions';
 import type { ApiError, ApiErrorCode } from '../../src/lib/api-types';
 import type { CreditGate } from './contracts';
-import { inMemoryCreditStore } from './creditStore';
+import { getCreditStore } from './creditStore';
 
 // ----------------------------------------------------------------------------
 // Credit gate provider
 // ----------------------------------------------------------------------------
 //
-// L0 ships an in-memory stub; lane B swaps in a Table Storage-backed gate as a
-// separate file implementing the same CreditGate interface. Handlers depend on
-// this accessor, not on a concrete store.
-export function getCreditGate(): CreditGate {
-  return inMemoryCreditStore;
+// Delegates to lane B's getCreditStore() factory, which returns the Table
+// Storage-backed gate when AZURE_STORAGE_CONNECTION_STRING is set, and the
+// in-memory stub otherwise (local dev / tests). Handlers depend on this
+// accessor, not on a concrete store.
+export async function getCreditGate(): Promise<CreditGate> {
+  return getCreditStore();
 }
 
 // ----------------------------------------------------------------------------

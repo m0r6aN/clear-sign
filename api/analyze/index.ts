@@ -38,7 +38,7 @@ export async function analyze(req: HttpRequest, ctx: InvocationContext): Promise
       });
     }
 
-    const gate = getCreditGate();
+    const gate = await getCreditGate();
     const balance = await gate.check(clientId);
     if (balance < CREDIT_COST.analyze) {
       return errorResponse(402, 'insufficient_credits', 'You are out of credits.');
