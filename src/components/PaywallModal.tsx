@@ -3,10 +3,12 @@ import { X, Loader2, CreditCard } from 'lucide-react';
 import { copy } from '../content/copy';
 import { createCheckoutSession } from '../services/billingApi';
 
+// Pack ids MUST match the server catalog in api/checkout/packs.ts
+// (single/triple/ten); copy comes from the content lane (copy.packs).
 const PACKS = [
-  { id: 'pack_10', label: '10 analyses', price: '$5' },
-  { id: 'pack_25', label: '25 analyses', price: '$10' },
-  { id: 'pack_50', label: '50 analyses', price: '$18' },
+  { id: 'single', ...copy.packs.single, popular: false },
+  { id: 'triple', ...copy.packs.triple, popular: true },
+  { id: 'ten', ...copy.packs.ten, popular: false },
 ];
 
 interface Props {
@@ -61,16 +63,27 @@ export default function PaywallModal({ onClose }: Props) {
               <button
                 key={pack.id}
                 onClick={() => setSelectedPack(pack.id)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border-2 transition-all text-left ${
+                className={`relative w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border-2 transition-all text-left ${
                   selectedPack === pack.id
                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                     : 'border-slate-200 dark:border-slate-700 hover:border-blue-300'
                 }`}
               >
-                <span className="font-medium text-slate-800 dark:text-slate-100 text-sm">
-                  {pack.label}
-                </span>
-                <span className="font-semibold text-slate-900 dark:text-white">{pack.price}</span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-slate-800 dark:text-slate-100 text-sm">
+                      {pack.label}
+                    </span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{pack.credits}</span>
+                    {pack.popular && (
+                      <span className="text-[10px] uppercase tracking-wide font-bold text-blue-600 bg-blue-100 dark:bg-blue-900/40 px-1.5 py-0.5 rounded">
+                        {copy.packs.badgePopular}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">{pack.description}</p>
+                </div>
+                <span className="font-semibold text-slate-900 dark:text-white shrink-0">{pack.price}</span>
               </button>
             ))}
           </div>

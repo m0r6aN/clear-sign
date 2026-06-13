@@ -27,10 +27,13 @@ export default function Landing({ onGetStarted }: Props) {
         <div className="max-w-xl w-full space-y-6">
           <div className="space-y-3">
             <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
-              {copy.app.tagline}
+              {copy.hero.headline}
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-300">
-              AI-powered contract analysis for freelancers and contractors. Spot red flags before you sign.
+              {copy.hero.body}
+            </p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              {copy.hero.scaryClauses}
             </p>
           </div>
 
@@ -44,12 +47,15 @@ export default function Landing({ onGetStarted }: Props) {
             onClick={onGetStarted}
             className="w-full py-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold text-lg rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2"
           >
-            Analyze a contract free
+            {copy.hero.cta}
             <ArrowRight className="w-5 h-5" />
           </button>
 
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            No account needed · 2 free analyses
+            {copy.hero.freeNote}
+          </p>
+          <p className="text-xs text-slate-400 dark:text-slate-500">
+            {copy.hero.trustNote}
           </p>
         </div>
       </main>
