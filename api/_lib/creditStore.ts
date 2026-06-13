@@ -5,43 +5,46 @@
 // tests. State lives in a module-level Map and resets on process restart.
 //
 // Owned by lane L0 (foundation). A production Table Storage-backed gate will be
-// added later as a SEPARATE file implementing the same interface.
+// added later as a SEPARATE file (Lane B) implementing the same interface.
 // ============================================================================
 
-import { CreditGate, InsufficientCreditsError } from './contracts';
-
-/** Credits granted to an email the first time it is seen. */
-export const DEFAULT_FREE_CREDITS = 3;
+import { CreditGate, InsufficientCreditsError, FREE_CREDITS } from './contracts';
 
 export class InMemoryCreditStore implements CreditGate {
   private readonly balances = new Map<string, number>();
 
-  constructor(private readonly defaultCredits: number = DEFAULT_FREE_CREDITS) {}
+  constructor(private readonly defaultCredits: number = FREE_CREDITS) {}
 
-  private key(email: string): string {
-    return email.trim().toLowerCase();
+  private key(clientId: string): string {
+    return clientId.trim();
   }
 
-  async check(email: string): Promise<number> {
-    const k = this.key(email);
+  async check(clientId: string): Promise<number> {
+    const k = this.key(clientId);
     if (!this.balances.has(k)) {
       this.balances.set(k, this.defaultCredits);
     }
     return this.balances.get(k) ?? 0;
   }
 
-  async decrement(email: string, n: number): Promise<void> {
-    const k = this.key(email);
-    const current = await this.check(email);
+  async decrement(clientId: string, n: number): Promise<void> {
+    const k = this.key(clientId);
+    const current = await this.check(clientId);
     if (current < n) {
       throw new InsufficientCreditsError();
     }
     this.balances.set(k, current - n);
   }
 
+  async grant(clientId: string, n: number): Promise<void> {
+    const k = this.key(clientId);
+    const current = await this.check(clientId);
+    this.balances.set(k, current + n);
+  }
+
   /** Test helper: directly set a balance. */
-  set(email: string, credits: number): void {
-    this.balances.set(this.key(email), credits);
+  set(clientId: string, credits: number): void {
+    this.balances.set(this.key(clientId), credits);
   }
 
   /** Test helper: wipe all balances. */

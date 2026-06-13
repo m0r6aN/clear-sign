@@ -20,10 +20,14 @@ export async function getCredits(): Promise<CreditsResponse> {
 
 /**
  * Start a Stripe Checkout session for a credit pack.
- * Returns the hosted Checkout URL the client should redirect to.
+ * `email` is collected at the paywall (first time we ask) for the receipt +
+ * lead capture; the clientId is attached internally so purchased credits land
+ * on the same balance as the free tier. Returns the hosted Checkout URL the
+ * client should redirect to.
  */
 export async function createCheckoutSession(
   _packId: CreditPackId,
+  _email: string,
 ): Promise<CheckoutResponse> {
   throw new Error(NOT_IMPLEMENTED);
 }

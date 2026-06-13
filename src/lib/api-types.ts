@@ -39,11 +39,15 @@ export interface ContractAnalysis {
 // ----------------------------------------------------------------------------
 
 /**
- * Caller identity used for credit accounting. Email is the credit-ledger key
- * (see CreditGate in api/_lib/contracts.ts).
+ * Caller identity used for credit accounting. The anonymous `clientId` is the
+ * credit-ledger key (see CreditGate in api/_lib/contracts.ts) — generated and
+ * persisted client-side (see src/services/identity.ts) and present on every
+ * request. This enables a zero-friction free tier: no email needed to try the
+ * product. Email is collected only at checkout (see CheckoutRequest) for the
+ * Stripe receipt + lead capture, and is linked to the same clientId.
  */
 export interface CallerIdentity {
-  email: string;
+  clientId: string;
 }
 
 /** Uniform error body returned by every endpoint on failure. */
@@ -124,6 +128,12 @@ export type CreditPackId = string;
 
 export interface CheckoutRequest extends CallerIdentity {
   packId: CreditPackId;
+  /**
+   * Buyer email — collected at checkout (the first point we ask for it).
+   * Used for the Stripe receipt and lead capture; purchased credits are still
+   * granted to the request's clientId so the free→paid balance is continuous.
+   */
+  email: string;
   /** Where Stripe should redirect on success. */
   successUrl: string;
   /** Where Stripe should redirect if the user cancels. */
