@@ -6,4 +6,4 @@ coverage/
 *.log
 .env*
 !.env.example
-.worktrees/
+api/package-lock.json
