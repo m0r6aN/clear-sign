@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "description": "ClearSign backend — Azure Functions (analyze, ask, ocr, credits, checkout)",
-  "type": "module",
   "main": "dist/**/*.js",
   "scripts": {
     "build": "tsc",
