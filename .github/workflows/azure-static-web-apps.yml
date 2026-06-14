@@ -12,7 +12,7 @@ on:
 
 jobs:
   build_and_deploy:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy
 
@@ -23,30 +23,6 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install frontend dependencies
-        run: npm ci
-
-      - name: Build frontend
-        run: npm run build
-        env:
-          # Frontend build env vars (non-secret). Secrets live in SWA App Settings,
-          # not here — the api/ functions read them from process.env at runtime.
-          NODE_ENV: production
-
-      - name: Install API dependencies
-        run: npm ci
-        working-directory: api
-
-      - name: Build API
-        run: npm run build
-        working-directory: api
-
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
@@ -56,8 +32,6 @@ jobs:
           app_location: '/'
           output_location: 'dist'
           api_location: 'api'
-          skip_app_build: true
-          skip_api_build: true
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
