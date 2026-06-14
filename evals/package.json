@@ -1,0 +1,18 @@
+{
+  "name": "clearsign-evals",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Advisory eval harness: cheapest Claude model that holds red-flag recall.",
+  "scripts": {
+    "eval": "tsx run.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "@types/node": "^22.14.0"
+  }
+}

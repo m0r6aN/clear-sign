@@ -1,0 +1,21 @@
+MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Mutual Non-Disclosure Agreement ("Agreement") is entered into as of the Effective Date by and between Apex Holdings, Inc. ("Company") and the undersigned individual contractor ("Recipient").
+
+1. CONFIDENTIAL INFORMATION. "Confidential Information" means any and all information disclosed by either party, in any form whatsoever, whether or not marked or identified as confidential, and whether disclosed before or after the Effective Date, including without limitation any information that is or becomes publicly known through no fault of the Recipient. The Recipient acknowledges that all such information shall be presumed confidential.
+
+2. TERM OF OBLIGATIONS. The Recipient's obligations of confidentiality under this Agreement shall survive in perpetuity and shall continue indefinitely, without expiration, notwithstanding the termination of any engagement between the parties.
+
+3. NON-SOLICITATION. For a period of three (3) years following disclosure, the Recipient shall not, directly or indirectly, solicit, hire, or engage any employee, contractor, client, customer, or business partner of the Company, anywhere in the world.
+
+4. LIQUIDATED DAMAGES. The Recipient agrees that any breach of this Agreement shall entitle the Company to liquidated damages in the amount of $250,000 per breach, which the Recipient agrees is reasonable and not a penalty, in addition to injunctive relief and the Company's attorneys' fees.
+
+5. ASSIGNMENT OF FEEDBACK. Any feedback, ideas, or suggestions the Recipient provides regarding the Company's products shall become the sole and exclusive property of the Company, with all rights assigned to the Company, without any compensation to the Recipient.
+
+6. INDEMNIFICATION. The Recipient shall indemnify, defend, and hold harmless the Company from any and all claims, losses, and expenses of any kind arising out of the Recipient's performance, without limitation of liability.
+
+7. GOVERNING LAW. This Agreement shall be governed by the laws of the State of Delaware, and the Recipient consents to exclusive jurisdiction in Delaware courts and waives any objection to venue, regardless of the Recipient's place of residence.
+
+8. NO OBLIGATION. Nothing in this Agreement obligates the Company to disclose any information, enter into any engagement, or pay the Recipient any amount.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the Effective Date.
