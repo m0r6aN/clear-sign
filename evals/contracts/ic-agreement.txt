@@ -1,0 +1,21 @@
+INDEPENDENT CONTRACTOR AGREEMENT
+
+This Independent Contractor Agreement ("Agreement") is made between Vertex Software LLC ("Company") and the individual contractor ("Contractor").
+
+1. ENGAGEMENT. Contractor will provide software development services on a non-exclusive basis as requested by the Company.
+
+2. INTELLECTUAL PROPERTY ASSIGNMENT. Contractor hereby irrevocably assigns to the Company all right, title, and interest in and to any and all inventions, works of authorship, code, designs, and other intellectual property that the Contractor conceives, creates, or reduces to practice, whether or not during working hours, whether or not using Company resources, and whether or not related to the Company's business. This assignment expressly includes the Contractor's pre-existing and background intellectual property and any inventions created on the Contractor's own time. Contractor agrees this constitutes work made for hire to the maximum extent permitted by law.
+
+3. MORAL RIGHTS. Contractor irrevocably waives any and all moral rights, rights of attribution, and rights of integrity in any work product, worldwide and in perpetuity.
+
+4. NON-COMPETE. For a period of two (2) years following the termination of this Agreement, the Contractor shall not, anywhere in the world, engage in, be employed by, or provide services to any business that competes with the Company or that develops software of any kind.
+
+5. CLASSIFICATION. Contractor is an independent contractor and is solely responsible for all taxes, and is not entitled to any benefits, unemployment, workers' compensation, or insurance. Contractor waives any right to be reclassified as an employee for any purpose.
+
+6. INDEMNIFICATION & LIABILITY. Contractor shall indemnify the Company against any claims arising from Contractor's work and shall be personally liable for all damages without any cap or limitation, including consequential and indirect damages.
+
+7. TERMINATION. The Company may terminate this Agreement immediately at any time without notice or cause. The Contractor must provide sixty (60) days' written notice to terminate and shall forfeit any outstanding unpaid fees upon the Contractor's termination.
+
+8. ASSIGNMENT OF AGREEMENT. The Company may assign this Agreement to any third party; the Contractor may not assign or delegate any rights or duties.
+
+9. GOVERNING LAW. This Agreement is governed by the laws of the State of New York.
