@@ -1,12 +1,5 @@
 // ============================================================================
-// Analysis API client (browser side) — STUB
-// ----------------------------------------------------------------------------
-// Typed wrappers around the backend analysis endpoints. The browser NEVER talks
-// to an LLM provider directly anymore; it calls our own /api/* functions, which
-// hold the secret key and enforce credit gating.
-//
-// L0 ships throwing stubs so downstream lanes can import a stable surface.
-// The endpoint/wiring lane replaces the bodies with real `fetch` calls.
+// Analysis API client (browser side)
 // ============================================================================
 
 import type {
@@ -14,46 +7,67 @@ import type {
   AskResponse,
   OcrResponse,
   ContractAnalysis,
+  ApiError,
 } from '../lib/api-types';
+import { getClientId } from './identity';
 
 // Re-exported so existing consumers (App.tsx) get the type from one place.
 export type { ContractAnalysis } from '../lib/api-types';
 
-const NOT_IMPLEMENTED = 'analysisApi: not implemented (L0 stub)';
-
-/** Analyze a contract. Returns the structured analysis. */
-export async function analyzeContract(_text: string): Promise<ContractAnalysis> {
-  throw new Error(NOT_IMPLEMENTED);
+export class ApiRequestError extends Error {
+  constructor(
+    public readonly code: string | undefined,
+    message: string,
+  ) {
+    super(message);
+    this.name = 'ApiRequestError';
+  }
 }
 
-/** Ask a follow-up question about a contract. Returns the plain-text answer. */
-export async function askContractQuestion(
-  _text: string,
-  _question: string,
-  _context: string[],
-): Promise<string> {
-  throw new Error(NOT_IMPLEMENTED);
+async function post<T>(path: string, body: object): Promise<T> {
+  const res = await fetch(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ clientId: getClientId(), ...body }),
+  });
+  if (!res.ok) {
+    const err: ApiError = await res.json().catch(() => ({ error: res.statusText }));
+    throw new ApiRequestError(err.code, err.error);
+  }
+  return res.json() as Promise<T>;
 }
 
-/** Extract raw text from a document image (data URI). */
-export async function extractTextFromImage(_dataUri: string): Promise<string> {
-  throw new Error(NOT_IMPLEMENTED);
-}
-
-// Lower-level variants returning the full envelope (incl. creditsRemaining)
-// are provided for the wiring lane to surface balance updates in the UI.
-export async function analyzeContractFull(_text: string): Promise<AnalyzeResponse> {
-  throw new Error(NOT_IMPLEMENTED);
+export async function analyzeContractFull(text: string): Promise<AnalyzeResponse> {
+  return post<AnalyzeResponse>('/api/analyze', { text });
 }
 
 export async function askContractQuestionFull(
-  _text: string,
-  _question: string,
-  _context: string[],
+  text: string,
+  question: string,
+  context: string[],
 ): Promise<AskResponse> {
-  throw new Error(NOT_IMPLEMENTED);
+  return post<AskResponse>('/api/ask', { text, question, context });
 }
 
-export async function extractTextFromImageFull(_dataUri: string): Promise<OcrResponse> {
-  throw new Error(NOT_IMPLEMENTED);
+export async function extractTextFromImageFull(dataUri: string): Promise<OcrResponse> {
+  return post<OcrResponse>('/api/ocr', { dataUri });
+}
+
+export async function analyzeContract(text: string): Promise<ContractAnalysis> {
+  const r = await analyzeContractFull(text);
+  return r.analysis;
+}
+
+export async function askContractQuestion(
+  text: string,
+  question: string,
+  context: string[],
+): Promise<string> {
+  const r = await askContractQuestionFull(text, question, context);
+  return r.answer;
+}
+
+export async function extractTextFromImage(dataUri: string): Promise<string> {
+  const r = await extractTextFromImageFull(dataUri);
+  return r.text;
 }
